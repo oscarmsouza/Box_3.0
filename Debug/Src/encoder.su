@@ -1,0 +1,10 @@
+encoder.c:11:5:OnehextoOneDec	0	static
+encoder.c:26:5:hexDec	40	static
+encoder.c:57:6:decHex	32	static
+encoder.c:99:6:decToBinary	144	static
+encoder.c:112:5:num_hex_digits	0	static
+encoder.c:123:6:hexBin	16	static
+encoder.c:191:5:binaryToDec	24	static
+encoder.c:206:5:bin_to_dec	32	static
+encoder.c:222:6:RemoveSpaces	0	static
+encoder.c:236:6:check_size_info	24	static

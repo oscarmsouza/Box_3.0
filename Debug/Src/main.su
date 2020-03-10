@@ -1,0 +1,8 @@
+main.c:168:6:SystemClock_Config	128	static
+main.c:560:6:blink	24	static
+main.c:570:6:fn_fprint	32	dynamic
+main.c:81:5:main	64	static
+main.c:581:6:HAL_UART_TxCpltCallback	0	static
+main.c:585:6:HAL_UART_RxCpltCallback	0	static
+main.c:595:6:Error_Handler	0	static
+main.c:610:6:assert_failed	0	static

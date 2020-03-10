@@ -1,0 +1,8 @@
+sigfox.c:14:6:fn_init_sigfox	16	static
+sigfox.c:42:6:fn_get_id_sigfox	32	static
+sigfox.c:60:6:fn_get_pac_sigfox	32	static
+sigfox.c:77:6:fn_at_sigfox	16	static
+sigfox.c:92:6:fn_get_volt_sigfox	24	static
+sigfox.c:107:6:fn_get_temperature_sigfox	24	static
+sigfox.c:124:6:fn_send_frame_test_sigfox	32	dynamic
+sigfox.c:138:6:fn_send_start_frame_sigfox	56	static
