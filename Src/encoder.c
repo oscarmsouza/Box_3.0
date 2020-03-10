@@ -239,22 +239,20 @@ void check_size_info(int size, char*buff) {
 		switch (strlen(buff)) {
 		case (1):
 			dado[0] = 48;
-			dado[1] = 48;
+			//dado[1] = 48;
 			strcat(dado, buff);
 			strcpy(buff, dado);
 			break;
 		case (2):
-			dado[0] = 48;
+/*			dado[0] = 48;
 			strcat(dado, buff);
-			strcpy(buff, dado);
+			strcpy(buff, dado);*/
 			break;
-		case (3):
-			break;
+/*		case (3):
+			break;*/
 		default:
 			buff[0] = 48;
-			buff[1] = 48;
-			buff[2] = 48;
-			buff[3] = 0;
+			buff[1] = 0;
 			break;
 		}
 	}

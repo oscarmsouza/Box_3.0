@@ -6,3 +6,4 @@ sigfox.c:92:6:fn_get_volt_sigfox	24	static
 sigfox.c:107:6:fn_get_temperature_sigfox	24	static
 sigfox.c:124:6:fn_send_frame_test_sigfox	32	dynamic
 sigfox.c:138:6:fn_send_start_frame_sigfox	56	static
+sigfox.c:181:6:fn_info_sigfox	16	static

@@ -144,7 +144,9 @@ void fn_send_start_frame_sigfox() {
 
 	char start_machine_frame[15] = { 0 };
 	char ok[4] = { 0 };
-	char buffer_start[7]={0};
+	char buffer_start[7] = { 0 };
+	int temp_buff = (int_temp_sigfox/10);
+	int volt_buff = (int_volt_sigfox/100);
 
 	start_machine_frame[0] = 65;
 	start_machine_frame[1] = 84;
@@ -155,23 +157,59 @@ void fn_send_start_frame_sigfox() {
 	start_machine_frame[6] = 48;
 	start_machine_frame[7] = 50;
 
-	decHex(int_temp_sigfox,buffer_start);
-	check_size_info(2,buffer_start);
-	strcat(start_machine_frame,buffer_start);
+	decHex(volt_buff, buffer_start);
+	check_size_info(2, buffer_start);
+	strcat(start_machine_frame, buffer_start);
 
-	decHex(int_volt_sigfox,buffer_start);
-	check_size_info(2,buffer_start);
-	strcat(start_machine_frame,buffer_start);
 
+	decHex(temp_buff, buffer_start);
+	check_size_info(2, buffer_start);
+	strcat(start_machine_frame, buffer_start);
 
 
 	start_machine_frame[12] = 13;
 	start_machine_frame[13] = 10;
 	start_machine_frame[14] = 0;
-	HAL_UART_Transmit(&huart1, (uint8_t*) start_machine_frame, 15,200);
+	HAL_UART_Transmit(&huart1, (uint8_t*) start_machine_frame, 15, 200);
 	HAL_Delay(500);
-	HAL_UART_Receive(&huart1, (uint8_t*) ok, 4,200);
+	HAL_UART_Receive(&huart1, (uint8_t*) ok, 4, 200);
 
 	HAL_Delay(1000);
+	SIGFOX_OFF
+}
+
+void fn_info_sigfox() {
+	SIGFOX_ON
+	SIGFOX_RESET_ON
+	HAL_Delay(10);
+	SIGFOX_RESET_OFF
+	HAL_Delay(1000);
+	fn_at_sigfox();
+	HAL_Delay(100);
+	fn_init_sigfox();
+	HAL_Delay(100);
+	fn_get_id_sigfox();
+	fn_fprint("SIGFOX ID: ");
+	fn_fprint(st_sigfox_parameters.id);
+	fn_fprint("\r\n");
+	HAL_Delay(100);
+	fn_get_pac_sigfox();
+	fn_fprint("SIGFOX PAC: ");
+	fn_fprint(st_sigfox_parameters.pac);
+	fn_fprint("\r\n");
+	HAL_Delay(100);
+	fn_get_temperature_sigfox();
+	fn_fprint("SIGFOX TEMPERATURE: ");
+	fn_fprint(st_sigfox_parameters.temperature);
+	fn_fprint("\r\n");
+	SIGFOX_RESET_ON
+	HAL_Delay(10);
+	SIGFOX_RESET_OFF
+	HAL_Delay(100);
+	fn_get_volt_sigfox();
+	fn_fprint("SIGFOX VOLTS: ");
+	fn_fprint(st_sigfox_parameters.volts);
+	fn_fprint("\r\n");
+	HAL_Delay(100);
 	SIGFOX_OFF
 }

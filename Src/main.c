@@ -24,7 +24,8 @@
  ******************************************************************************
  ******************************************************************************
  ******************************************************************************
- Version - 1.0 - 09/03/2020 - sigfox enable and work (just init transmission)
+ Version - 1.0 		- 09/03/2020 - sigfox enable and work (just init transmission)
+ Version - 1.0.1 	- 10/03/2020 - encoder fix bug.
  */
 /* USER CODE END Header */
 
@@ -123,36 +124,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	blink(5);
 	fn_fprint("START PROGRAM\r\n");
-	SIGFOX_ON
-	SIGFOX_RESET_ON
-	HAL_Delay(10);
-	SIGFOX_RESET_OFF
-	HAL_Delay(1000);
-	fn_at_sigfox();
-	HAL_Delay(100);
-	fn_init_sigfox();
-	HAL_Delay(100);
-	fn_get_id_sigfox();
-	fn_fprint("SIGFOX ID: ");
-	fn_fprint(st_sigfox_parameters.id);
-	fn_fprint("\r\n");
-	HAL_Delay(100);
-	fn_get_pac_sigfox();
-	fn_fprint("SIGFOX PAC: ");
-	fn_fprint(st_sigfox_parameters.pac);
-	fn_fprint("\r\n");
-	HAL_Delay(100);
-	fn_get_temperature_sigfox();
-	fn_fprint("SIGFOX TEMPERATURE: ");
-	fn_fprint(st_sigfox_parameters.temperature);
-	fn_fprint("\r\n");
-	HAL_Delay(100);
-	fn_get_volt_sigfox();
-	fn_fprint("SIGFOX VOLTS: ");
-	fn_fprint(st_sigfox_parameters.volts);
-	fn_fprint("\r\n");
-	HAL_Delay(100);
-	SIGFOX_OFF
+	fn_info_sigfox();
   /* USER CODE END 2 */
  
  
