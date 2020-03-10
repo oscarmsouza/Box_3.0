@@ -155,13 +155,15 @@ void fn_send_start_frame_sigfox() {
 	start_machine_frame[6] = 48;
 	start_machine_frame[7] = 50;
 
+	decHex(int_temp_sigfox,buffer_start);
+	check_size_info(2,buffer_start);
+	strcat(start_machine_frame,buffer_start);
+
 	decHex(int_volt_sigfox,buffer_start);
 	check_size_info(2,buffer_start);
 	strcat(start_machine_frame,buffer_start);
 
-	decHex(int_temp_sigfox,buffer_start);
-	check_size_info(2,buffer_start);
-	strcat(start_machine_frame,buffer_start);
+
 
 	start_machine_frame[12] = 13;
 	start_machine_frame[13] = 10;

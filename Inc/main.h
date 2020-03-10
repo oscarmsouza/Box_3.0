@@ -40,6 +40,7 @@ extern "C" {
 
 #include "sigfox.h"
 #include "encoder.h"
+#include "gprs.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

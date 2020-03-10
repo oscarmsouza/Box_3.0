@@ -21,4 +21,6 @@
 
 UART_HandleTypeDef huart5;
 
+void fn_init_gprs();
+
 #endif /* GPRS_H_ */
