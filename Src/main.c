@@ -26,6 +26,7 @@
  ******************************************************************************
  Version - 1.0 		- 09/03/2020 - sigfox enable and work (just init transmission)
  Version - 1.0.1 	- 10/03/2020 - encoder fix bug.
+ Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read
  */
 /* USER CODE END Header */
 
@@ -53,6 +54,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
+DMA_HandleTypeDef hdma_adc;
 
 I2C_HandleTypeDef hi2c1;
 
@@ -69,6 +71,7 @@ UART_HandleTypeDef huart5;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ADC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_LPUART1_UART_Init(void);
@@ -77,7 +80,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_USART4_UART_Init(void);
 static void MX_USART5_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+float get_temp (uint32_t variable);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -114,6 +117,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC_Init();
   MX_I2C1_Init();
   MX_LPUART1_UART_Init();
@@ -124,6 +128,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	blink(5);
 	fn_fprint("START PROGRAM\r\n");
+	fn_get_stm32_temperature();
+	fn_get_stm32_volts();
 	fn_info_sigfox();
   /* USER CODE END 2 */
  
@@ -135,9 +141,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		blink(10);
-		fn_send_start_frame_sigfox();
-		HAL_Delay(60000);
+		blink(50);
 
 	}
   /* USER CODE END 3 */
@@ -255,7 +259,7 @@ static void MX_ADC_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN ADC_Init 2 */
-
+	HAL_ADC_Start_DMA(&hadc, value, 3);
   /* USER CODE END ADC_Init 2 */
 
 }
@@ -480,6 +484,22 @@ static void MX_USART5_UART_Init(void)
 
 }
 
+/** 
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void) 
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+
+}
+
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -590,6 +610,31 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	UartReady = SET;
 }
+
+float get_temp (uint32_t variable)   // function to read temp from the value
+{
+	return (((V25 - VSENSE*variable) / Avg_Slope) + 25);
+}
+
+void fn_get_stm32_temperature(){
+	 st_stm_adc_variables.temperature = get_temp(value[2])/10;
+}
+
+void fn_get_stm32_volts()
+{
+	st_stm_adc_variables.battery = value[0];
+	st_stm_adc_variables.battery/=1000;
+}
+
+/*void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+	for (int i =0; i<3; i++)
+	{
+	  adc[i] = buffer[i];
+	}
+
+	temperature = (((adc[2]*vsense)-.76)/.0025)+25;
+}*/
 
 /* USER CODE END 4 */
 

@@ -45,7 +45,11 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+struct{
+	float
+	temperature,
+	battery;
+}st_stm_adc_variables;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -56,6 +60,8 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 __IO ITStatus UartReady;// = RESET;
+
+uint32_t value[3];  // to store the adc values
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -64,6 +70,9 @@ void Error_Handler(void);
 /* USER CODE BEGIN EFP */
 void blink(uint8_t times);
 void fn_fprint(char *data);
+float get_temp (uint32_t variable);
+void fn_get_stm32_temperature();
+void fn_get_stm32_volts();
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -143,6 +152,12 @@ void fn_fprint(char *data);
 #define SIGFOX_RESET_OFF		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,1);
 #define SIGFOX_WAKEUP_ON		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,0);
 #define SIGFOX_WAKEUP_OFF		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,1);
+
+// for get battery volts and stm32 temperature let's get the values from the datasheet
+#define V25  1.43
+#define Avg_Slope .0043
+#define VSENSE 3.3/4096   // 3.3 v and 12 bits so 4096
+
 
 /* USER CODE END Private defines */
 
