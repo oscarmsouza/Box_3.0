@@ -24,9 +24,10 @@
  ******************************************************************************
  ******************************************************************************
  ******************************************************************************
- Version - 1.0 		- 09/03/2020 - sigfox enable and work (just init transmission)
+ Version - 1.0.0	- 09/03/2020 - sigfox enable and work (just init transmission).
  Version - 1.0.1 	- 10/03/2020 - encoder fix bug.
- Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read
+ Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read.
+ Version - 1.2.0	- 11/03/2020 - LSM303AH library implementation (nao testado-soldar R9).
  */
 /* USER CODE END Header */
 
@@ -127,17 +128,16 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 	blink(5);
 	fn_fprint("START PROGRAM\r\n");
-
 	/* USER CODE END 2 */
-
+	fn_init_lsm303ah();
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		//fn_send_start_frame_sigfox();
-		fn_init_gprs();
+		fn_get_lsm303ah();
+		LED_CHANGE
 		HAL_Delay(10000);
 
 	}
