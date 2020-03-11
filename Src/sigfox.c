@@ -6,6 +6,8 @@
  */
 #include <sigfox.h>
 
+
+
 /*
  fn_init_sigfox
  funcao de configuracoes para a rede sigfox na regiao 2 e 4 alem da possibilidade de utilizar na dongle com downlink
@@ -86,6 +88,7 @@ void fn_at_sigfox() {
 	 at = 1;
 	 }
 	 return at;*/
+
 }
 
 //pegar a tensao no modulo sigfox
@@ -137,6 +140,7 @@ void fn_send_frame_test_sigfox(char* frame) {
 
 void fn_send_start_frame_sigfox() {
 	SIGFOX_ON
+	fn_status_sigfox();
 	HAL_Delay(100);
 	fn_init_sigfox();
 	fn_get_temperature_sigfox();
@@ -176,6 +180,7 @@ void fn_send_start_frame_sigfox() {
 
 	HAL_Delay(1000);
 	SIGFOX_OFF
+	fn_status_sigfox();
 }
 
 void fn_info_sigfox() {
@@ -212,4 +217,14 @@ void fn_info_sigfox() {
 	fn_fprint("\r\n");
 	HAL_Delay(100);
 	SIGFOX_OFF
+}
+
+
+void fn_status_sigfox()
+{
+	if (HAL_GPIO_ReadPin(WISOL_LED_CPU_GPIO_Port,WISOL_LED_CPU_Pin)) {
+		LED_ON
+	}
+	else
+		LED_OFF
 }

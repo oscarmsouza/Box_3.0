@@ -17,6 +17,7 @@
 #include <stdbool.h>
 
 #include "sigfox.h"
+#include "gprs.h"
 
 int OnehextoOneDec(char hex[]);
 int hexDec(char *hex);

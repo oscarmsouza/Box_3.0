@@ -46,5 +46,6 @@ void fn_get_temperature_sigfox();
 void fn_send_frame_test_sigfox(char* frame);
 void fn_send_start_frame_sigfox();
 void fn_info_sigfox();
+void fn_status_sigfox();
 
 #endif /* SIGFOX_H_ */

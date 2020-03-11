@@ -45,6 +45,8 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+
+
 struct{
 	float
 	temperature,
@@ -153,10 +155,15 @@ void fn_get_stm32_volts();
 #define SIGFOX_WAKEUP_ON		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,0);
 #define SIGFOX_WAKEUP_OFF		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,1);
 
+
+
 // for get battery volts and stm32 temperature let's get the values from the datasheet
 #define V25  1.43
 #define Avg_Slope .0043
 #define VSENSE 3.3/4096   // 3.3 v and 12 bits so 4096
+
+
+
 
 
 /* USER CODE END Private defines */

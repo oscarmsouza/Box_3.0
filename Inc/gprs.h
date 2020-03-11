@@ -19,8 +19,12 @@
 #include "sigfox.h"
 #include "encoder.h"
 
-UART_HandleTypeDef huart5;
+
+#define BYTE_GSM_SIZE       500
+
 
 void fn_init_gprs();
-
+void clearBuffer(uint8_t *pbuffer, uint8_t bufferSize);
+void fn_fprint_gprs(char* command);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 #endif /* GPRS_H_ */

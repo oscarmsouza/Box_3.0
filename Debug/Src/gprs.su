@@ -1,1 +1,5 @@
-gprs.c:11:6:fn_init_gprs	40	static
+gprs.c:20:5:fn_check_ok	8	static
+gprs.c:108:6:clearBuffer	0	static
+gprs.c:52:6:fn_fprint_gprs	32	dynamic
+gprs.c:32:6:fn_init_gprs	8	static
+gprs.c:115:6:HAL_UART_RxCpltCallback	16	static
