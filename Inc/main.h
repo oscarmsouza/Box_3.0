@@ -42,6 +42,7 @@ extern "C" {
 #include "encoder.h"
 #include "gprs.h"
 #include "lsm303ah_reg.h"
+#include "gps.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -155,6 +156,9 @@ void fn_get_stm32_volts();
 #define SIGFOX_RESET_OFF		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,1);
 #define SIGFOX_WAKEUP_ON		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,0);
 #define SIGFOX_WAKEUP_OFF		HAL_GPIO_WritePin(EN_SFOX_GPIO_Port,EN_SFOX_Pin,1);
+
+#define GPS_ON              	HAL_GPIO_WritePin(EN_GPS_GPIO_Port,EN_GPS_Pin,1);
+#define GPS_OFF             	HAL_GPIO_WritePin(EN_GPS_GPIO_Port,EN_GPS_Pin,0);
 
 
 

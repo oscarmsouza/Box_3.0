@@ -173,24 +173,24 @@ void fn_get_lsm303ah() {
 
 	}
 
-	accelerometer.a_x = acceleration_mg[0];
-	accelerometer.a_y = acceleration_mg[1];
-	accelerometer.a_z = acceleration_mg[2];
+	st_accelerometer.a_x = acceleration_mg[0];
+	st_accelerometer.a_y = acceleration_mg[1];
+	st_accelerometer.a_z = acceleration_mg[2];
 
 
-	accelerometer.pitch_y = (atan2(accelerometer.a_y, sqrt(accelerometer.a_x * accelerometer.a_x + accelerometer.a_z * accelerometer.a_z)) * 180.0) / M_PI; //angulo eixo y
-	accelerometer.pitch = (atan2(accelerometer.a_x, sqrt(accelerometer.a_y * accelerometer.a_y + accelerometer.a_z * accelerometer.a_z)) * 180.0) / M_PI; // angulo eixo x
+	st_accelerometer.pitch_y = (atan2(st_accelerometer.a_y, sqrt(st_accelerometer.a_x * st_accelerometer.a_x + st_accelerometer.a_z * st_accelerometer.a_z)) * 180.0) / M_PI; //angulo eixo y
+	st_accelerometer.pitch = (atan2(st_accelerometer.a_x, sqrt(st_accelerometer.a_y * st_accelerometer.a_y + st_accelerometer.a_z * st_accelerometer.a_z)) * 180.0) / M_PI; // angulo eixo x
 
-	accelerometer.roll = (atan2(accelerometer.a_y, accelerometer.a_z) * 180.0) / M_PI;
-	accelerometer.roll_x = (atan2(accelerometer.a_x, accelerometer.a_z) * 180.0) / M_PI;
+	st_accelerometer.roll = (atan2(st_accelerometer.a_y,st_accelerometer.a_z) * 180.0) / M_PI;
+	st_accelerometer.roll_x = (atan2(st_accelerometer.a_x, st_accelerometer.a_z) * 180.0) / M_PI;
 
-	accelerometer.yaw = 180 * (atan2(accelerometer.a_z, sqrt(accelerometer.a_x * accelerometer.a_x + accelerometer.a_z * accelerometer.a_z))) / M_PI;
-	accelerometer.yaw_y = 180 * (atan2(accelerometer.a_z, sqrt(accelerometer.a_x * accelerometer.a_x + accelerometer.a_z * accelerometer.a_z))) / M_PI;
+	st_accelerometer.yaw = 180 * (atan2(st_accelerometer.a_z, sqrt(st_accelerometer.a_x * st_accelerometer.a_x + st_accelerometer.a_z * st_accelerometer.a_z))) / M_PI;
+	st_accelerometer.yaw_y = 180 * (atan2(st_accelerometer.a_z, sqrt(st_accelerometer.a_x * st_accelerometer.a_x + st_accelerometer.a_z * st_accelerometer.a_z))) / M_PI;
 
 
-	magnetometer.m_x = magnetic_mG[0];
-	magnetometer.m_y = magnetic_mG[1];
-	magnetometer.m_z = magnetic_mG[2];
+	st_magnetometer.m_x = magnetic_mG[0];
+	st_magnetometer.m_y = magnetic_mG[1];
+	st_magnetometer.m_z = magnetic_mG[2];
 }
 
 

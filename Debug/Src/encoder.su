@@ -8,3 +8,4 @@ encoder.c:191:5:binaryToDec	24	static
 encoder.c:206:5:bin_to_dec	32	static
 encoder.c:222:6:RemoveSpaces	0	static
 encoder.c:236:6:check_size_info	24	static
+encoder.c:348:6:find_between	24	static

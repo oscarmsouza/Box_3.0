@@ -1,0 +1,2 @@
+gps.c:23:6:fn_get_gps	1216	static
+gps.c:14:6:fn_init_gps	8	static

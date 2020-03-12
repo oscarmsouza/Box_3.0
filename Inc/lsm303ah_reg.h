@@ -57,11 +57,11 @@ float temperature_degC;
 
  struct{
 	int16_t a_x, a_y, a_z,pitch_y, pitch, roll, roll_x, yaw, yaw_y;
-}accelerometer;
+}st_accelerometer;
 
  struct{
 	int16_t m_x, m_y, m_z;
-}magnetometer;
+}st_magnetometer;
 
 typedef union {
 	int16_t i16bit[3];

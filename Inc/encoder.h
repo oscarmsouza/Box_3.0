@@ -18,6 +18,7 @@
 
 #include "sigfox.h"
 #include "gprs.h"
+#include "gps.h"
 
 int OnehextoOneDec(char hex[]);
 int hexDec(char *hex);
@@ -29,6 +30,7 @@ int binaryToDec(int num);
 int bin_to_dec(char *bin);
 void RemoveSpaces(char source[]);
 void check_size_info(int size, char*buff);
-
+void find_between(const char *first, const char *last, char *buff,
+		char *buff_return);
 
 #endif /* ENCODER_H_ */

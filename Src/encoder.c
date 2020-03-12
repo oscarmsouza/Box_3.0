@@ -341,3 +341,27 @@ void check_size_info(int size, char*buff) {
 
 		}
 }
+
+//########################## ENCODER AUXILIAR GPS ###############################
+
+
+void find_between(const char *first, const char *last, char *buff,
+		char *buff_return) {
+	//const char *last = "*";
+	//const char *buff = _gps;
+	char *target = NULL;
+	char *start, *end;
+	start = strstr(buff, first);
+	end = strstr(start, last);
+
+	if (start) {
+		start += strlen(first);
+		if (end) {
+			target = (char *) malloc(end - start + 1);
+			memcpy(target, start, end - start);
+			target[end - start] = '\0';
+		}
+	}
+	strcpy(buff_return, target);
+	free(target);
+}
