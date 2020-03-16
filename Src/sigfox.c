@@ -121,7 +121,7 @@ void fn_get_temperature_sigfox() {
 	UartReady = RESET;
 
 	int_temp_sigfox = atoi(st_sigfox_parameters.temperature);
-
+	int_temp_sigfox/=10;
 }
 
 // daqui para baixo estao as funcoes de envio e recepcao de frames pela rede

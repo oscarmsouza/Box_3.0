@@ -1,9 +1,9 @@
 sensors.c:10:6:fn_init_sensors	8	static
-sensors.c:39:6:fn_get_angle_value	8	static
-sensors.c:46:6:fn_get_volume_value	8	static
-sensors.c:73:6:fn_get_latitude_value	0	static
-sensors.c:77:6:fn_get_longitude_value	0	static
+sensors.c:40:6:fn_get_angle_value	8	static
+sensors.c:47:6:fn_get_volume_value	8	static
+sensors.c:71:6:fn_get_latitude_value	0	static
+sensors.c:75:6:fn_get_longitude_value	0	static
 sensors.c:64:6:fn_get_lat_lon_values	8	static
-sensors.c:81:6:fn_get_temperature_value	16	static
-sensors.c:97:6:fn_get_battery_value	16	static
+sensors.c:79:6:fn_get_temperature_value	16	static
+sensors.c:95:6:fn_get_battery_value	16	static
 sensors.c:23:6:fn_get_sensors_values	8	static

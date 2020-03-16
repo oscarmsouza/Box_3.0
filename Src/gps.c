@@ -58,7 +58,7 @@ void fn_get_gps() {
 
 	HAL_UART_Init(&hlpuart1);
 	HAL_UART_Receive(&hlpuart1, (uint8_t*) buffer_gps, 1024, 2000);
-	HAL_UART_Transmit(&hlpuart1, (uint8_t*) buffer_gps, 1024, 2000);
+	//HAL_UART_Transmit(&hlpuart1, (uint8_t*) buffer_gps, 1024, 2000);
 	//fn_fprint(buffer_gps);
 
 	/*	 Message Structure:

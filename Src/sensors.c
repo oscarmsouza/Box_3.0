@@ -34,6 +34,7 @@ void fn_get_sensors_values() {
 	 fn_get_temperature_value();
 	 fn_get_battery_value();
 
+	 serial_values();
 }
 
 void fn_get_angle_value() {
@@ -45,7 +46,6 @@ void fn_get_angle_value() {
 
 void fn_get_volume_value() {
 	st_data_sensor_e.distance = fn_get_sen031x();
-
 	if (st_data_sensor_e.distance < st_data_sensor_e.referenceVol) {
 		st_data_sensor_e.volume = 10;
 	} else if (st_data_sensor_e.distance >= st_data_sensor_e.referenceVol) {
@@ -63,11 +63,9 @@ void fn_get_volume_value() {
 
 void fn_get_lat_lon_values()
 {
-
 	fn_get_gps();
 	fn_get_longitude_value();
 	fn_get_latitude_value();
-
 }
 
 void fn_get_latitude_value() {
@@ -96,7 +94,8 @@ void fn_get_temperature_value() {
 
 void fn_get_battery_value() {
 	SIGFOX_ON
-	fn_init_sigfox();
+	HAL_Delay(500);
+	fn_get_id_sigfox();
 	fn_get_stm32_volts();
 	fn_get_volt_sigfox();
 	SIGFOX_OFF

@@ -45,6 +45,7 @@ extern "C" {
 #include "gps.h"
 #include "sen031x.h"
 #include "sensors.h"
+#include "program.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

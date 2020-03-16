@@ -32,6 +32,7 @@
  Version - 1.3.1	- 12/02/2020 - GPS code optimization.
  Version - 1.4.0	- 16/03/2020 - SEN031x implementation (test ok).
  Version - 1.5.0	- 16/03/2020 - sensors library implementation - get all sensors values.
+ Version - 1.6.0	- 16/03/2020 - program library implementation - looping function.
  */
 /* USER CODE END Header */
 
@@ -130,12 +131,7 @@ int main(void) {
 	MX_USART4_UART_Init();
 	MX_USART5_UART_Init();
 	/* USER CODE BEGIN 2 */
-	blink(5);
-	LED_ON
-	HAL_Delay(3000);
-	fn_fprint("START PROGRAM\r\n");
-	LED_OFF
-	fn_init_sensors();
+	fn_start_program();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -144,12 +140,7 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		fn_get_sensors_values();
-		/*		LED_CHANGE
-		 dist = fn_get_sen031x();
-		 fn_fprintnumber(dist);
-		 fn_fprint("\r\n");
-		 HAL_Delay(10000);*/
+		fn_run_program();
 
 	}
 	/* USER CODE END 3 */
