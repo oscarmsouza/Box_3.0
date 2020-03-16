@@ -104,6 +104,7 @@ void fn_get_volt_sigfox() {
 	UartReady = RESET;
 
 	int_volt_sigfox = atoi(st_sigfox_parameters.volts);
+	int_volt_sigfox/=1000;
 }
 
 //pegar a temperatura no mudulo sigfox

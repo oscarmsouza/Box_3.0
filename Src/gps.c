@@ -17,7 +17,17 @@ void fn_init_gps() {
 	 st_data_sensor_e.log_value = 0;
 	 st_data_sensor_previwes_e.log_value = 0;
 	 st_data_sensor_previwes_e.lat_value = 0;*/
-	fn_get_gps();
+	//fn_get_gps();
+	GPS_ON
+	st_gps_data_current.altitude = 0;
+	st_gps_data_current.hour = 0;
+	st_gps_data_current.latitude = 0;
+	st_gps_data_current.longitude = 0;
+	st_gps_data_current.minute = 0;
+	st_gps_data_current.numSV = 0;
+	st_gps_data_current.quality = 0;
+	st_gps_data_current.second = 0;
+	st_gps_data_current.speed = 0;
 }
 
 void fn_get_gps() {
@@ -162,52 +172,50 @@ void fn_get_gps() {
 	}
 }
 
-
-void fn_print_gps()
-{
-	 char numbuff[] = "\0";
-	 fn_fprint("\r\n");
-	 fn_fprint("********* GPS ***********");
-	 fn_fprint("\r\n");
-	 fn_fprint("LATITUDE: ");
-	 itoa(st_gps_data_current.longitude, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("LONGITUDE: ");
-	 itoa(st_gps_data_current.longitude, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("GPS HOUR: ");
-	 itoa(st_gps_data_current.hour, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("GPS MINUTE: ");
-	 itoa(st_gps_data_current.minute, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("GPS SECOND: ");
-	 itoa(st_gps_data_current.second, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("SIGNAL QUALITY: ");
-	 itoa(st_gps_data_current.second, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("ALTITUDE: ");
-	 itoa(st_gps_data_current.second, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("\r\n");
-	 fn_fprint("NUMBER SATELLITES: ");
-	 itoa(st_gps_data_current.second, numbuff, 10);
-	 fn_fprint(numbuff);
-	 HAL_Delay(100);
-	 fn_fprint("*********************\r\n");
+void fn_print_gps() {
+	char numbuff[] = "\0";
+	fn_fprint("\r\n");
+	fn_fprint("********* GPS ***********");
+	fn_fprint("\r\n");
+	fn_fprint("LATITUDE: ");
+	itoa(st_gps_data_current.longitude, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("LONGITUDE: ");
+	itoa(st_gps_data_current.longitude, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("GPS HOUR: ");
+	itoa(st_gps_data_current.hour, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("GPS MINUTE: ");
+	itoa(st_gps_data_current.minute, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("GPS SECOND: ");
+	itoa(st_gps_data_current.second, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("SIGNAL QUALITY: ");
+	itoa(st_gps_data_current.second, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("ALTITUDE: ");
+	itoa(st_gps_data_current.second, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("\r\n");
+	fn_fprint("NUMBER SATELLITES: ");
+	itoa(st_gps_data_current.second, numbuff, 10);
+	fn_fprint(numbuff);
+	HAL_Delay(100);
+	fn_fprint("*********************\r\n");
 
 }

@@ -44,6 +44,7 @@ extern "C" {
 #include "lsm303ah_reg.h"
 #include "gps.h"
 #include "sen031x.h"
+#include "sensors.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

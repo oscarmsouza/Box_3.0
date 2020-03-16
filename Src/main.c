@@ -31,6 +31,7 @@
  Version - 1.3.0	- 11/02/2020 - GPS implementation (test ok).
  Version - 1.3.1	- 12/02/2020 - GPS code optimization.
  Version - 1.4.0	- 16/03/2020 - SEN031x implementation (test ok).
+ Version - 1.5.0	- 16/03/2020 - sensors library implementation - get all sensors values.
  */
 /* USER CODE END Header */
 
@@ -134,7 +135,7 @@ int main(void) {
 	HAL_Delay(3000);
 	fn_fprint("START PROGRAM\r\n");
 	LED_OFF
-fn_init_lsm303ah();
+	fn_init_sensors();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -143,12 +144,12 @@ fn_init_lsm303ah();
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		fn_get_lsm303ah();
-/*		LED_CHANGE
-		dist = fn_get_sen031x();
-		fn_fprintnumber(dist);
-		fn_fprint("\r\n");
-		HAL_Delay(10000);*/
+		fn_get_sensors_values();
+		/*		LED_CHANGE
+		 dist = fn_get_sen031x();
+		 fn_fprintnumber(dist);
+		 fn_fprint("\r\n");
+		 HAL_Delay(10000);*/
 
 	}
 	/* USER CODE END 3 */
@@ -611,10 +612,12 @@ float get_temp(uint32_t variable)   // function to read temp from the value
 }
 
 void fn_get_stm32_temperature() {
+	HAL_ADC_Start_DMA(&hadc, value, 3);
 	st_stm_adc_variables.temperature = get_temp(value[2]) / 10;
 }
 
 void fn_get_stm32_volts() {
+	HAL_ADC_Start_DMA(&hadc, value, 3);
 	st_stm_adc_variables.battery = value[0];
 	st_stm_adc_variables.battery /= 1000;
 }

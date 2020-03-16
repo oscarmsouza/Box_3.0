@@ -3,8 +3,8 @@ sigfox.c:44:6:fn_get_id_sigfox	32	static
 sigfox.c:62:6:fn_get_pac_sigfox	32	static
 sigfox.c:79:6:fn_at_sigfox	16	static
 sigfox.c:95:6:fn_get_volt_sigfox	24	static
-sigfox.c:110:6:fn_get_temperature_sigfox	24	static
-sigfox.c:127:6:fn_send_frame_test_sigfox	32	dynamic
-sigfox.c:186:6:fn_info_sigfox	16	static
-sigfox.c:223:6:fn_status_sigfox	8	static
-sigfox.c:141:6:fn_send_start_frame_sigfox	56	static
+sigfox.c:111:6:fn_get_temperature_sigfox	24	static
+sigfox.c:128:6:fn_send_frame_test_sigfox	32	dynamic
+sigfox.c:187:6:fn_info_sigfox	16	static
+sigfox.c:224:6:fn_status_sigfox	8	static
+sigfox.c:142:6:fn_send_start_frame_sigfox	56	static
