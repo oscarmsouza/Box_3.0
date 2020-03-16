@@ -46,6 +46,8 @@ void fn_init_gps();
 
 void fn_get_gps();
 
+void fn_print_gps();
+
 /**
  * @}
  */

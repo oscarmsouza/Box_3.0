@@ -24,12 +24,13 @@
  ******************************************************************************
  ******************************************************************************
  ******************************************************************************
- Version - 1.0.0	- 09/03/2020 - sigfox enable and work (just init transmission).
+ Version - 1.0.0	- 09/03/2020 - sigfox enable and work (just init transmission) (test ok).
  Version - 1.0.1 	- 10/03/2020 - encoder fix bug.
- Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read.
- Version - 1.2.0	- 11/03/2020 - LSM303AH library implementation.
- Version - 1.3.0	- 11/02/2020 - GPS implementation ok
- Version - 1.3.1	- 12/02/2020 - GPS code optimization
+ Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read (test ok).
+ Version - 1.2.0	- 11/03/2020 - LSM303AH library implementation (test ok).
+ Version - 1.3.0	- 11/02/2020 - GPS implementation (test ok).
+ Version - 1.3.1	- 12/02/2020 - GPS code optimization.
+ Version - 1.4.0	- 16/03/2020 - SEN031x implementation (test ok).
  */
 /* USER CODE END Header */
 
@@ -129,7 +130,11 @@ int main(void) {
 	MX_USART5_UART_Init();
 	/* USER CODE BEGIN 2 */
 	blink(5);
+	LED_ON
+	HAL_Delay(3000);
 	fn_fprint("START PROGRAM\r\n");
+	LED_OFF
+fn_init_lsm303ah();
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -138,9 +143,12 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-
-		LED_CHANGE
-		HAL_Delay(10000);
+		fn_get_lsm303ah();
+/*		LED_CHANGE
+		dist = fn_get_sen031x();
+		fn_fprintnumber(dist);
+		fn_fprint("\r\n");
+		HAL_Delay(10000);*/
 
 	}
 	/* USER CODE END 3 */
@@ -410,7 +418,7 @@ static void MX_USART4_UART_Init(void) {
 
 	/* USER CODE END USART4_Init 1 */
 	huart4.Instance = USART4;
-	huart4.Init.BaudRate = 9600;
+	huart4.Init.BaudRate = 115200;
 	huart4.Init.WordLength = UART_WORDLENGTH_8B;
 	huart4.Init.StopBits = UART_STOPBITS_1;
 	huart4.Init.Parity = UART_PARITY_NONE;
@@ -611,6 +619,11 @@ void fn_get_stm32_volts() {
 	st_stm_adc_variables.battery /= 1000;
 }
 
+void fn_fprintnumber(int number) {
+	char numbuff[] = "\0";
+	itoa(number, numbuff, 10);
+	fn_fprint(numbuff);
+}
 /*void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
  {
  for (int i =0; i<3; i++)

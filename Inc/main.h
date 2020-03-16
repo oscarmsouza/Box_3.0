@@ -43,6 +43,7 @@ extern "C" {
 #include "gprs.h"
 #include "lsm303ah_reg.h"
 #include "gps.h"
+#include "sen031x.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -77,6 +78,7 @@ void fn_fprint(char *data);
 float get_temp (uint32_t variable);
 void fn_get_stm32_temperature();
 void fn_get_stm32_volts();
+void fn_fprintnumber(int number);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -160,6 +162,11 @@ void fn_get_stm32_volts();
 #define GPS_ON              	HAL_GPIO_WritePin(EN_GPS_GPIO_Port,EN_GPS_Pin,1);
 #define GPS_OFF             	HAL_GPIO_WritePin(EN_GPS_GPIO_Port,EN_GPS_Pin,0);
 
+#define BLE_ON              	HAL_GPIO_WritePin(EN_BLE_GPIO_Port,EN_BLE_Pin,1);
+#define BLE_OFF             	HAL_GPIO_WritePin(EN_BLE_GPIO_Port,EN_BLE_Pin,0);
+
+#define US_ON              HAL_GPIO_WritePin(EN_US_GPIO_Port,EN_US_Pin,1);
+#define US_OFF             HAL_GPIO_WritePin(EN_US_GPIO_Port,EN_US_Pin,0);
 
 
 // for get battery volts and stm32 temperature let's get the values from the datasheet
