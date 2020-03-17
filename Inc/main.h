@@ -174,7 +174,7 @@ void fn_fprintnumber(int number);
 // for get battery volts and stm32 temperature let's get the values from the datasheet
 #define V25  1.43
 #define Avg_Slope .0043
-#define VSENSE 3.3/4096   // 3.3 v and 12 bits so 4096
+#define VSENSE 3.3/4095   // 3.3 v and 12 bits so 4095
 
 
 

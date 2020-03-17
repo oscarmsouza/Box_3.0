@@ -24,15 +24,16 @@
  ******************************************************************************
  ******************************************************************************
  ******************************************************************************
- Version - 1.0.0	- 09/03/2020 - sigfox enable and work (just init transmission) (test ok).
- Version - 1.0.1 	- 10/03/2020 - encoder fix bug.
- Version - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read (test ok).
- Version - 1.2.0	- 11/03/2020 - LSM303AH library implementation (test ok).
- Version - 1.3.0	- 11/02/2020 - GPS implementation (test ok).
- Version - 1.3.1	- 12/02/2020 - GPS code optimization.
- Version - 1.4.0	- 16/03/2020 - SEN031x implementation (test ok).
- Version - 1.5.0	- 16/03/2020 - sensors library implementation - get all sensors values.
- Version - 1.6.0	- 16/03/2020 - program library implementation - looping function.
+ oVersion - 1.0.0	- 09/03/2020 - sigfox enable and work (just init transmission) (test ok).
+ oVersion - 1.0.1 	- 10/03/2020 - encoder fix bug.
+ oVersion - 1.1.0    - 11/03/2020 - Battery and internal temperature adc read (test ok).
+ oVersion - 1.2.0	- 11/03/2020 - LSM303AH library implementation (test ok).
+ oVersion - 1.3.0	- 11/02/2020 - GPS implementation (test ok).
+ oVersion - 1.3.1	- 12/02/2020 - GPS code optimization.
+ oVersion - 1.4.0	- 16/03/2020 - SEN031x implementation (test ok).
+ oVersion - 1.5.0	- 16/03/2020 - sensors library implementation - get all sensors values.
+ oVersion - 1.6.0	- 16/03/2020 - program library implementation - looping function.
+ oVersion - 1.7.0	- 17/03/2020 - Sigfox mensagens imlementation - uplink and downlink frame.
  */
 /* USER CODE END Header */
 

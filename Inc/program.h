@@ -38,6 +38,17 @@ typedef enum {
 	SEND_ALERT,
 } Machine_States_t;
 
+struct
+{
+	unsigned int
+	TimeStamp,
+	gps_timer,
+	Time_Machine,
+    cont_time,
+    seconds_today,
+	seconds_to_send;
+}st_timers;
+
 
 void fn_Change_Machine_State(Machine_States_t state);
 void fn_start_program();

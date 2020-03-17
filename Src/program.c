@@ -24,42 +24,15 @@ void fn_start_program() {
 	fn_fprint("START PROGRAM\r\n");
 	LED_OFF
 	fn_init_sensors();
+	fn_get_sensors_values();
+	fn_send_daily_frame_sigfox();
 }
 
 void fn_run_program() {
-	switch (e_Current_Machine_State) {
-	case NONE:
-		break;
-	case INITIALIZING:
 
-		fn_fprint("INITIALIZING PROGRAM\r\n");
-		fn_Change_Machine_State(COUNTER);
-		break;
-	case ERRO:
-
-		break;
-	case TEST:
-
-		break;
-	case COUNTER:
-		fn_fprint("COUNTER\r\n");
+		HAL_Delay(30000);
 		fn_get_sensors_values();
-
-		HAL_Delay(10000);
-		break;
-	case SEND_UPLINK:
-
-		fn_Change_Machine_State(COUNTER);
-		break;
-	case SEND_DOWNLINK:
-
-		fn_Change_Machine_State(COUNTER);
-		break;
-	case SEND_ALERT:
-
-		fn_Change_Machine_State(COUNTER);
-		break;
-	}
+		fn_send_report_frame_sigfox();
 }
 
 void serial_values() {
@@ -97,6 +70,6 @@ void serial_values() {
 	fn_fprint("VOLUME: ");
 	fn_fprintnumber((int)st_data_sensor_e.volume);
 	HAL_Delay(1000);
-	fn_fprint("########################################\r\n");
+	fn_fprint("\r\n########################################\r\n");
 
 }

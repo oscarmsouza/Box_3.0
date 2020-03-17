@@ -28,6 +28,7 @@ void fn_init_gps() {
 	st_gps_data_current.quality = 0;
 	st_gps_data_current.second = 0;
 	st_gps_data_current.speed = 0;
+
 }
 
 void fn_get_gps() {
@@ -167,6 +168,7 @@ void fn_get_gps() {
 			st_gps_data_current.altitude = 0;
 			st_gps_data_current.quality = 0;
 			st_gps_data_current.numSV = 0;
+			GPS_OFF
 		}
 
 	}

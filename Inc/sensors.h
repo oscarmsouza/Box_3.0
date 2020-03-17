@@ -23,6 +23,8 @@
 #include "gps.h"
 #include "sen031x.h"
 
+#define VOL_MIN		20
+
 typedef struct {
 	//e_uplink_frames_type_t header;
 	uint32_t angle, battery, distance, temperature, latitude, longitude,

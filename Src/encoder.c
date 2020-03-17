@@ -7,6 +7,49 @@
 
 #include "encoder.h"
 
+//########################## ENCODER  PAYLOAD ###############################
+
+void fn_encoder_report_frame(char * frame){
+
+		//char report_frame_complete[31] = { 0 };
+		char buffer_frame[7] = { 0 };
+		char header_char[2] = "2";
+		//itoa(header, header_char, 10);
+		fn_fprint("SEND REPORT FRAME:  ");
+
+		/*	report_frame_complete[6] = 48;
+		 report_frame_complete[7] = 50;*/
+
+		check_size_info(2, header_char);
+		strcat(frame, header_char);
+
+		decHex(st_data_sensor_e.battery, buffer_frame);
+		check_size_info(2, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		decHex(st_data_sensor_e.temperature, buffer_frame);
+		check_size_info(2, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		decHex(st_data_sensor_e.latitude, buffer_frame);
+		check_size_info(6, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		decHex(st_data_sensor_e.longitude, buffer_frame);
+		check_size_info(6, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		strcat(frame, "0");
+
+		decHex(st_data_sensor_e.volume, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		decHex(st_data_sensor_e.angle, buffer_frame);
+		strcat(frame, buffer_frame);
+
+		strcat(frame, "0");
+}
+
 //########################## ENCODER HEXA/DEC/BIN ###############################
 int OnehextoOneDec(char hex[]) {
 	int i = 0;
@@ -54,7 +97,7 @@ int hexDec(char *hex) {
 	return decimal;
 }
 
-void decHex(int number, char buff[7]) {
+void decHex(uint32_t number, char buff[7]) {
 
 	char hex[7]; /*bcoz it contains characters A to F*/
 	memset(buff, 0x00, 7);//sizeof(buff));
@@ -252,7 +295,7 @@ void check_size_info(int size, char*buff) {
 			break;*/
 		default:
 			buff[0] = 48;
-			buff[1] = 0;
+			buff[1] = 48;
 			break;
 		}
 	}
@@ -342,6 +385,24 @@ void check_size_info(int size, char*buff) {
 		}
 }
 
+int fn_get_seconsForTimeStemp(int TS_Total) {
+	//TS_Total = 355195;
+	int TS_hour, TS_day, TS_minute, TS_secons;
+	float TS_hour_aux, TS_day_aux, TS_minute_aux;
+
+	TS_day_aux = TS_Total / 1440.000;
+	TS_day = TS_day_aux;
+
+	TS_hour_aux = (TS_day_aux - TS_day) * 24.000;
+	TS_hour = TS_hour_aux;
+
+	TS_minute_aux = (TS_hour_aux - TS_hour) * 60.00;
+	TS_minute = round(TS_minute_aux);
+
+	TS_secons = 60 * (TS_minute + (TS_hour * 60));
+
+	return TS_secons;
+}
 //########################## ENCODER AUXILIAR GPS ###############################
 
 
@@ -365,3 +426,5 @@ void find_between(const char *first, const char *last, char *buff,
 	strcpy(buff_return, target);
 	free(target);
 }
+
+

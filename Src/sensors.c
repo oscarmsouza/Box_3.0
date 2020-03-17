@@ -33,7 +33,6 @@ void fn_get_sensors_values() {
 	 fn_get_lat_lon_values();
 	 fn_get_temperature_value();
 	 fn_get_battery_value();
-
 	 serial_values();
 }
 
@@ -41,12 +40,12 @@ void fn_get_angle_value() {
 	fn_get_lsm303ah();
 	if (st_accelerometer.pitch < 0)
 		st_accelerometer.pitch *= (-1);
-	st_data_sensor_e.angle = st_accelerometer.pitch;
+	st_data_sensor_e.angle = round (st_accelerometer.pitch/10);
 }
 
 void fn_get_volume_value() {
 	st_data_sensor_e.distance = fn_get_sen031x();
-	if (st_data_sensor_e.distance < st_data_sensor_e.referenceVol) {
+	if (st_data_sensor_e.distance < VOL_MIN) {
 		st_data_sensor_e.volume = 10;
 	} else if (st_data_sensor_e.distance >= st_data_sensor_e.referenceVol) {
 		st_data_sensor_e.volume = 0;
