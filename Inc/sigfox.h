@@ -18,7 +18,7 @@
 
 
 #include "encoder.h"
-#include "gprs.h"
+#include "saraG450.h"
 #include "lsm303ah_reg.h"
 #include "gps.h"
 #include "sen031x.h"
@@ -39,11 +39,7 @@ struct {
 	at[4];
 } st_sigfox_parameters;
 
-struct{
-	char
-	test[24],
-	frame_report_values[22];
-}st_sigfox_frame;
+
 
 void fn_init_sigfox();
 void fn_get_id_sigfox();

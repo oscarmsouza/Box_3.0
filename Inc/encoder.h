@@ -17,7 +17,7 @@
 #include <stdbool.h>
 
 #include "sigfox.h"
-#include "gprs.h"
+#include "saraG450.h"
 #include "lsm303ah_reg.h"
 #include "gps.h"
 #include "sen031x.h"
@@ -38,5 +38,7 @@ void find_between(const char *first, const char *last, char *buff,
 void fn_encoder_report_frame(char * frame);
 
 int fn_get_seconsForTimeStemp(int TS_Total);
+
+int find_word(char *where, char *word);
 
 #endif /* ENCODER_H_ */

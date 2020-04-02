@@ -9,45 +9,45 @@
 
 //########################## ENCODER  PAYLOAD ###############################
 
-void fn_encoder_report_frame(char * frame){
+void fn_encoder_report_frame(char * frame) {
 
-		//char report_frame_complete[31] = { 0 };
-		char buffer_frame[7] = { 0 };
-		char header_char[2] = "2";
-		//itoa(header, header_char, 10);
-		fn_fprint("SEND REPORT FRAME:  ");
+	//char report_frame_complete[31] = { 0 };
+	char buffer_frame[7] = { 0 };
+	char header_char[2] = "2";
+	//itoa(header, header_char, 10);
+	fn_fprint("ENCODER REPORT FRAME\r\n");
 
-		/*	report_frame_complete[6] = 48;
-		 report_frame_complete[7] = 50;*/
+	/*	report_frame_complete[6] = 48;
+	 report_frame_complete[7] = 50;*/
 
-		check_size_info(2, header_char);
-		strcat(frame, header_char);
+	check_size_info(2, header_char);
+	strcat(frame, header_char);
 
-		decHex(st_data_sensor_e.battery, buffer_frame);
-		check_size_info(2, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.battery, buffer_frame);
+	check_size_info(2, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		decHex(st_data_sensor_e.temperature, buffer_frame);
-		check_size_info(2, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.temperature, buffer_frame);
+	check_size_info(2, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		decHex(st_data_sensor_e.latitude, buffer_frame);
-		check_size_info(6, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.latitude, buffer_frame);
+	check_size_info(6, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		decHex(st_data_sensor_e.longitude, buffer_frame);
-		check_size_info(6, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.longitude, buffer_frame);
+	check_size_info(6, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		strcat(frame, "0");
+	strcat(frame, "0");
 
-		decHex(st_data_sensor_e.volume, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.volume, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		decHex(st_data_sensor_e.angle, buffer_frame);
-		strcat(frame, buffer_frame);
+	decHex(st_data_sensor_e.angle, buffer_frame);
+	strcat(frame, buffer_frame);
 
-		strcat(frame, "0");
+	strcat(frame, "0");
 }
 
 //########################## ENCODER HEXA/DEC/BIN ###############################
@@ -100,8 +100,8 @@ int hexDec(char *hex) {
 void decHex(uint32_t number, char buff[7]) {
 
 	char hex[7]; /*bcoz it contains characters A to F*/
-	memset(buff, 0x00, 7);//sizeof(buff));
-	memset(hex, 0x00, 7);//sizeof(buff));
+	memset(buff, 0x00, 7); //sizeof(buff));
+	memset(hex, 0x00, 7); //sizeof(buff));
 	int cnt, i;
 	cnt = 0; /*initialize index to zero*/
 	if (number == 0) {
@@ -277,7 +277,7 @@ void RemoveSpaces(char source[]) {
 }
 
 void check_size_info(int size, char*buff) {
-	if(size == 2){
+	if (size == 2) {
 		char dado[4] = "";
 		switch (strlen(buff)) {
 		case (1):
@@ -287,19 +287,18 @@ void check_size_info(int size, char*buff) {
 			strcpy(buff, dado);
 			break;
 		case (2):
-/*			dado[0] = 48;
-			strcat(dado, buff);
-			strcpy(buff, dado);*/
+			/*			dado[0] = 48;
+			 strcat(dado, buff);
+			 strcpy(buff, dado);*/
 			break;
-/*		case (3):
-			break;*/
+			/*		case (3):
+			 break;*/
 		default:
 			buff[0] = 48;
 			buff[1] = 48;
 			break;
 		}
-	}
-		else if (size==4){
+	} else if (size == 4) {
 		char dado[5] = "";
 		switch (strlen(buff)) {
 		case (1):
@@ -330,8 +329,7 @@ void check_size_info(int size, char*buff) {
 			buff[4] = 0;
 			break;
 		}
-		}
-		else if (size==6){
+	} else if (size == 6) {
 		char dado[7] = "";
 		switch (strlen(buff)) {
 		case (1):
@@ -382,7 +380,7 @@ void check_size_info(int size, char*buff) {
 			break;
 		}
 
-		}
+	}
 }
 
 int fn_get_seconsForTimeStemp(int TS_Total) {
@@ -405,7 +403,6 @@ int fn_get_seconsForTimeStemp(int TS_Total) {
 }
 //########################## ENCODER AUXILIAR GPS ###############################
 
-
 void find_between(const char *first, const char *last, char *buff,
 		char *buff_return) {
 	//const char *last = "*";
@@ -427,4 +424,27 @@ void find_between(const char *first, const char *last, char *buff,
 	free(target);
 }
 
+int find_word(char *where, char *word) {
+	int size_where = strlen(where);
+	int size_word = strlen(word);
+	int ok = 0;
+	int n = 0;
+	int m = 0;
 
+	for (int var = 0; var < size_where; ++var) {
+		// if first character of search string matches
+		while (where[n] == word[m]) {
+			n++;
+			m++;
+		}
+		// if we sequence of characters matching with the length of searched string
+		if (m == size_word) {
+			ok = 1;
+			break;
+		}
+		n++;
+		m = 0; // reset the counter to start from first character of the search string.
+	}
+
+	return ok;
+}

@@ -1,0 +1,10 @@
+saraG450.c:10:6:fn_power_on_sara	8	static
+saraG450.c:238:5:fn_at_command_sara	536	dynamic
+saraG450.c:44:6:fn_get_module_info_sara	8	static
+saraG450.c:56:6:fn_network_configuration_sara	8	static
+saraG450.c:89:6:fn_network_activation_sara	24	static
+saraG450.c:189:6:fn_power_off_sara	8	static
+saraG450.c:25:6:fn_start_at_commands_sara	8	static
+saraG450.c:215:5:fn_get_imei_sara	24	static
+saraG450.c:292:6:fn_mount_frame_sara	16	static
+saraG450.c:151:6:fn_http_mensage_sara	8	static

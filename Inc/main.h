@@ -40,7 +40,7 @@ extern "C" {
 
 #include "sigfox.h"
 #include "encoder.h"
-#include "gprs.h"
+#include "saraG450.h"
 #include "lsm303ah_reg.h"
 #include "gps.h"
 #include "sen031x.h"
@@ -50,7 +50,17 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+struct{
+	char
+	test[24],
+	frame_report_values[22];
+}st_frame_type;
 
+enum
+{
+	DAILY_UPDATE_FRAME,
+	CONFIG_FRAME
+} e_downlink_frame_type;
 
 struct{
 	float
@@ -66,7 +76,7 @@ struct{
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-__IO ITStatus UartReady;// = RESET;
+__IO ITStatus UartReady;
 
 uint32_t value[3];  // to store the adc values
 /* USER CODE END EM */
@@ -81,6 +91,8 @@ float get_temp (uint32_t variable);
 void fn_get_stm32_temperature();
 void fn_get_stm32_volts();
 void fn_fprintnumber(int number);
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
