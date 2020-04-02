@@ -178,8 +178,8 @@ void fn_reset_sigfox() {
 // daqui para baixo estao as funcoes de envio e recepcao de frames pela rede
 void fn_send_report_frame_sigfox() {
 	SIGFOX_ON
-	memset(st_sigfox_frame.frame_report_values, 0, 22);
-	fn_encoder_report_frame(st_sigfox_frame.frame_report_values);
+	memset(st_frame_type.frame_report_values, 0, 22);
+	fn_encoder_report_frame(st_frame_type.frame_report_values);
 	fn_status_sigfox();
 	HAL_Delay(500);
 	fn_reset_sigfox();
@@ -197,7 +197,7 @@ void fn_send_report_frame_sigfox() {
 	complete_frame[4] = 70;
 	complete_frame[5] = 61;
 
-	strcat(complete_frame, st_sigfox_frame.frame_report_values);
+	strcat(complete_frame, st_frame_type.frame_report_values);
 	strcat(complete_frame, "\r\n");
 	HAL_UART_Transmit_IT(&huart1, (uint8_t*) complete_frame, tam);
 	while (UartReady != SET) {
@@ -261,8 +261,8 @@ void fn_send_start_frame_sigfox() {
 void fn_send_daily_frame_sigfox() {
 	SIGFOX_ON
 	fn_fprint("SIGFOX DAILY FRAME\r\n");
-	memset(st_sigfox_frame.frame_report_values, 0, 22);
-	fn_encoder_report_frame(st_sigfox_frame.frame_report_values);
+	memset(st_frame_type.frame_report_values, 0, 22);
+	fn_encoder_report_frame(st_frame_type.frame_report_values);
 	fn_status_sigfox();
 	HAL_Delay(500);
 	fn_reset_sigfox();
@@ -286,7 +286,7 @@ void fn_send_daily_frame_sigfox() {
 	complete_payload[3] = 83;
 	complete_payload[4] = 70;
 	complete_payload[5] = 61;
-	strcat(complete_payload, st_sigfox_frame.frame_report_values);
+	strcat(complete_payload, st_frame_type.frame_report_values);
 	complete_payload[28] = 44;
 	complete_payload[29] = 49;
 	complete_payload[30] = 13;

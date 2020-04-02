@@ -9,5 +9,6 @@ encoder.c:249:5:bin_to_dec	32	static
 encoder.c:265:6:RemoveSpaces	0	static
 encoder.c:279:6:check_size_info	24	static
 encoder.c:12:6:fn_encoder_report_frame	32	static
-encoder.c:388:5:fn_get_seconsForTimeStemp	16	static
-encoder.c:409:6:find_between	24	static
+encoder.c:386:5:fn_get_seconsForTimeStemp	16	static
+encoder.c:406:6:find_between	24	static
+encoder.c:427:5:find_word	32	static

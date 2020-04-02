@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/oscar/OneDrive/Wize/2-Dev/2-Firmwares/3-repo/Box_3.0/Inc
+HeaderPath=C:/Users/oscar/Wize/2-Dev/2-Firmwares/3-repo/Box_3.0/Inc
 HeaderFiles=stm32l0xx_it.h;stm32l0xx_hal_conf.h;main.h;
-SourcePath=C:/Users/oscar/OneDrive/Wize/2-Dev/2-Firmwares/3-repo/Box_3.0/Src
+SourcePath=C:/Users/oscar/Wize/2-Dev/2-Firmwares/3-repo/Box_3.0/Src
 SourceFiles=stm32l0xx_it.c;stm32l0xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]
