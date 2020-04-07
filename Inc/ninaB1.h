@@ -25,15 +25,16 @@ UART_HandleTypeDef huart4;
 #define BYTES_NINA_TO_RECEIVER	500
 
 char responce_nina[BYTES_NINA_TO_RECEIVER];
-
-
-
+char cofetest[8];
+uint8_t byte_nina;
+uint32_t NINAbytesToReceive;
+char recever_nina_uart[100];
 
 int fn_at_command_nina(char* at_command, unsigned int msDelay);
 void fn_find_device_rssi(int devices_strength_seguence);
 void fn_ninaB1();
 int fn_set_perimetral_nina();
 
-
+int fn_recever_nina(unsigned int sec_timeout);
 
 #endif /* NINAB1_H_ */

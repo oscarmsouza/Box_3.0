@@ -104,6 +104,8 @@ void fn_get_stm32_volts();
 void fn_fprintnumber(int number);
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart);
+void fn_change_baundrate(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

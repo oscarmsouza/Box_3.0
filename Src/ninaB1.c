@@ -116,6 +116,7 @@ int fn_at_command_nina(char* at_command, unsigned int msDelay) {
 	//HAL_UART_Transmit_IT(&hlpuart1, (uint8_t*) sendResponse,size_response_uart);
 	fn_fprint(sendResponse);
 
+
 	return return_flag;
 }
 
@@ -127,6 +128,9 @@ int fn_set_perimetral_nina() {
 	LED_ON
 	HAL_Delay(1000);
 	fn_at_command_nina("AT", 1000);
+	//fn_at_command_nina("AT+UMRS=115200,2,8,1,1,1",1000);
+	//fn_change_baundrate();
+	fn_at_command_nina("AT", 1000);
 	fn_at_command_nina("AT+UBTLE=2", 1000);
 	HAL_Delay(500);
 	fn_at_command_nina("AT+UDSC=0,6", 1000);
@@ -137,8 +141,41 @@ int fn_set_perimetral_nina() {
 	fn_at_command_nina("AT+UBTLN=\"WIZE TEST PERIMETRAL BLE\"", 1000);
 	HAL_Delay(500);
 	fn_at_command_nina("ATO1", 1000);
-
+	//fn_recever_nina(50);
+	while(1){
+	fn_at_command_nina("SEND TO ME", 10000);
+	fn_fprint("\n");
+	}
 	return 1;
+}
+
+int fn_recever_nina(unsigned int sec_timeout){
+	volatile int NUM=0;
+	char receiver_buff[100];
+	uint8_t receiver_byte;
+	sec_timeout*=1000;
+	while(sec_timeout!=0){
+		HAL_UART_Receive_DMA(&huart4,&receiver_byte,1);
+		if(receiver_byte!=0)
+		{
+			receiver_buff[NUM++] = receiver_byte;
+			LED_CHANGE
+		}
+		HAL_Delay(1);
+		sec_timeout--;
+		if(receiver_byte == 13)
+		{
+			break;
+		}
+	}
+	if(NUM>0)
+	{
+		fn_fprint(receiver_buff);
+		return 1;
+	}
+	else
+		return 0;
+
 }
 
 
