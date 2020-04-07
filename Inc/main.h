@@ -46,6 +46,7 @@ extern "C" {
 #include "sen031x.h"
 #include "sensors.h"
 #include "program.h"
+#include "ninaB1.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -67,6 +68,16 @@ struct{
 	temperature,
 	battery;
 }st_stm_adc_variables;
+
+struct{
+	uint8_t
+	usart1,
+	usart2,
+	usart3,
+	usart4,
+	usart5,
+	husart1;
+}st_flag;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

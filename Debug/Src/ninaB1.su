@@ -1,0 +1,4 @@
+ninaB1.c:34:6:fn_find_device_rssi	8	static
+ninaB1.c:72:5:fn_at_command_nina	536	dynamic
+ninaB1.c:10:6:fn_ninaB1	24	static
+ninaB1.c:122:5:fn_set_perimetral_nina	24	static

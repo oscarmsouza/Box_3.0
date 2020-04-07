@@ -35,6 +35,7 @@
  oVersion - 1.6.0	- 16/03/2020 - program library implementation - looping function.
  oVersion - 1.7.0	- 17/03/2020 - Sigfox mensagens imlementation - uplink and downlink frame.
  oVersion - 1.8.0 	- 30/03/2020 - Sara G450 library implementation (test ok).
+ oVersion - 1.9.0 	- 07/04/2020 - Nina B112 library implementation .
  */
 /* USER CODE END Header */
 
@@ -71,10 +72,13 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart5;
+DMA_HandleTypeDef hdma_usart4_rx;
+DMA_HandleTypeDef hdma_usart4_tx;
 DMA_HandleTypeDef hdma_usart5_rx;
 DMA_HandleTypeDef hdma_usart5_tx;
 
 /* USER CODE BEGIN PV */
+char at[500];
 //__IO ITStatus UartReady = RESET;
 /* USER CODE END PV */
 
@@ -92,6 +96,8 @@ static void MX_USART5_UART_Init(void);
 /* USER CODE BEGIN PFP */
 float get_temp(uint32_t variable);
 
+
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -108,7 +114,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
+
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -137,11 +143,14 @@ int main(void)
   MX_USART4_UART_Init();
   MX_USART5_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  blink(10);
+   fn_set_perimetral_nina();
 	//fn_start_program();
+
+
   /* USER CODE END 2 */
- 
- 
+
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -150,15 +159,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		//fn_run_program();
-
-	  	fn_power_on_sara();
-		fn_start_at_commands_sara();
-		//fn_network_configuration_sara();
-		fn_network_activation_sara();
-		//fn_http_mensage_sara(DAILY_UPDATE_FRAME);
-		fn_http_mensage_sara(CONFIG_FRAME);
-		fn_power_off_sara();
-		HAL_Delay(60000);
+		//LED_CHANGE
+		//HAL_Delay(1000);
 
 	}
   /* USER CODE END 3 */
@@ -174,10 +176,10 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-  /** Configure the main internal regulator output voltage 
+  /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -188,7 +190,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -230,7 +232,7 @@ static void MX_ADC_Init(void)
   /* USER CODE BEGIN ADC_Init 1 */
 
   /* USER CODE END ADC_Init 1 */
-  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
+  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
   */
   hadc.Instance = ADC1;
   hadc.Init.OversamplingMode = DISABLE;
@@ -253,7 +255,7 @@ static void MX_ADC_Init(void)
   {
     Error_Handler();
   }
-  /** Configure for the selected ADC regular channel to be converted. 
+  /** Configure for the selected ADC regular channel to be converted.
   */
   sConfig.Channel = ADC_CHANNEL_4;
   sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
@@ -261,14 +263,14 @@ static void MX_ADC_Init(void)
   {
     Error_Handler();
   }
-  /** Configure for the selected ADC regular channel to be converted. 
+  /** Configure for the selected ADC regular channel to be converted.
   */
   sConfig.Channel = ADC_CHANNEL_5;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  /** Configure for the selected ADC regular channel to be converted. 
+  /** Configure for the selected ADC regular channel to be converted.
   */
   sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
@@ -309,13 +311,13 @@ static void MX_I2C1_Init(void)
   {
     Error_Handler();
   }
-  /** Configure Analogue filter 
+  /** Configure Analogue filter
   */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
-  /** Configure Digital filter 
+  /** Configure Digital filter
   */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
   {
@@ -504,7 +506,7 @@ static void MX_USART5_UART_Init(void)
 /** 
   * Enable DMA controller clock
   */
-static void MX_DMA_Init(void) 
+static void MX_DMA_Init(void)
 {
 
   /* DMA controller clock enable */
@@ -517,6 +519,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_3_IRQn);
+  /* DMA1_Channel4_5_6_7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel4_5_6_7_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel4_5_6_7_IRQn);
 
 }
 
@@ -539,7 +544,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOB, GPRS_RST_Pin|WISOL_WKP_Pin|WISOL_RST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_LED_Pin|EN_US_Pin|EN_GPRS_Pin|EN_GPS_Pin 
+  HAL_GPIO_WritePin(GPIOA, GPIO_LED_Pin|EN_US_Pin|EN_GPRS_Pin|EN_GPS_Pin
                           |EN_BLE_Pin|EN_SFOX_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -596,9 +601,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIO_LED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : EN_US_Pin EN_GPRS_Pin EN_GPS_Pin EN_BLE_Pin 
+  /*Configure GPIO pins : EN_US_Pin EN_GPRS_Pin EN_GPS_Pin EN_BLE_Pin
                            EN_SFOX_Pin */
-  GPIO_InitStruct.Pin = EN_US_Pin|EN_GPRS_Pin|EN_GPS_Pin|EN_BLE_Pin 
+  GPIO_InitStruct.Pin = EN_US_Pin|EN_GPRS_Pin|EN_GPS_Pin|EN_BLE_Pin
                           |EN_SFOX_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -632,10 +637,18 @@ void fn_fprint(char *data) {
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 	UartReady = SET;
+	if (huart->Instance == USART4) {
+
+	}
 }
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	UartReady = SET;
+	if (huart->Instance == USART4) {
+		//HAL_UART_Receive_DMA(&huart4, &st_flag.usart4,1);
+	}
 }
+
 float get_temp(uint32_t variable)   // function to read temp from the value
 {
 	return (((V25 - VSENSE * variable) / Avg_Slope) + 25);
@@ -657,6 +670,7 @@ void fn_fprintnumber(int number) {
 	itoa(number, numbuff, 10);
 	fn_fprint(numbuff);
 }
+
 /*void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
  {
  for (int i =0; i<3; i++)
@@ -690,7 +704,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
 	/* User can add his own implementation to report the file name and line number,
 	 tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
